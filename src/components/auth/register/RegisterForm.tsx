@@ -46,7 +46,10 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) =
     setLoading(true);
 
     try {
-      const result = await register(formData);
+      // Remove password from data sent to database since calon_mitra table doesn't have password column
+      const { password, ...registrationData } = formData;
+      
+      const result = await register(registrationData);
       
       if (result.success) {
         toast({
