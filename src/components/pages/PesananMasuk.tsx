@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, Calendar, MapPin, Clock, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -43,7 +42,7 @@ const PesananMasuk: React.FC<PesananMasukProps> = ({ onBack }) => {
     }
   };
 
-  const handleTerimaP esanan = async (pesananId: string) => {
+  const handleTerimaPesanan = async (pesananId: string) => {
     try {
       const { error } = await supabase
         .from('pesanan')
