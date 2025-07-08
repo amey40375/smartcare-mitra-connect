@@ -46,26 +46,44 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onSwitchToLogin }) => {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-
-    const result = await register(formData);
     
-    if (result.success) {
+    if (!formData.nama || !formData.email || !formData.password || !formData.nomor_hp || !formData.ktp || !formData.kk) {
       toast({
-        title: "Pendaftaran Berhasil",
-        description: result.message,
-        variant: "default"
-      });
-      onSwitchToLogin();
-    } else {
-      toast({
-        title: "Pendaftaran Gagal",
-        description: result.message,
+        title: "Error",
+        description: "Semua field wajib diisi",
         variant: "destructive"
       });
+      return;
     }
-    
-    setLoading(false);
+
+    setLoading(true);
+
+    try {
+      const result = await register(formData);
+      
+      if (result.success) {
+        toast({
+          title: "Pendaftaran Berhasil",
+          description: result.message,
+          variant: "default"
+        });
+        onSwitchToLogin();
+      } else {
+        toast({
+          title: "Pendaftaran Gagal",
+          description: result.message,
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Terjadi kesalahan tidak terduga",
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

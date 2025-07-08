@@ -70,6 +70,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       return { success: true, message: 'Login berhasil' };
     } catch (error) {
+      console.error('Login error:', error);
       return { success: false, message: 'Terjadi kesalahan sistem' };
     }
   };
@@ -83,11 +84,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         .single();
 
       if (error) {
+        console.error('Registration error:', error);
         return { success: false, message: 'Gagal mendaftar: ' + error.message };
       }
 
       return { success: true, message: 'Pendaftaran berhasil! Tunggu verifikasi admin.' };
     } catch (error) {
+      console.error('Registration error:', error);
       return { success: false, message: 'Terjadi kesalahan sistem' };
     }
   };
